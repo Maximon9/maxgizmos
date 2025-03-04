@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://cin321fqbdg4o"]
 
-[ext_resource type="Script" uid="uid://cbw60m6yiy1g1" path="res://scripts/test_1.gd" id="1_yihnx"]
+[ext_resource type="Script" uid="uid://di6igy87x7abo" path="res://scripts/test_2.gd" id="1_yihnx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ebx5f"]
 size = Vector3(26.605, 1, 33.015)
 
-[node name="Example1" type="Node3D"]
+[node name="Example2" type="Node3D"]
 script = ExtResource("1_yihnx")
 gizmo_position = Vector3(2, 2, 0)
 

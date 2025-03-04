@@ -115,6 +115,7 @@ var uvs := PackedVector2Array():
 	set(v):
 		uvs = v
 		update_minimal_data()
+var scenario: RID
 
 func _init(
 	_parent: Node3D,
@@ -156,16 +157,22 @@ func _init(
 			mesh.surface_set_material(i, material)
 	
 	# Create a render instance
-	print(parent)
 	instance_rid = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(instance_rid, mesh_rid)
 	RenderingServer.instance_geometry_set_cast_shadows_setting(instance_rid, int(cast_shadow))
 	RenderingServer.instance_set_scenario(instance_rid, parent.get_world_3d().scenario)
 	RenderingServer.instance_set_transform(instance_rid, transform) # Position it at (0,1,0)
-
+	# RenderingServer.instance_attach_object_instance_id(instance_rid, parent.get_instance_id()) # Position it at (0,1,0)
 	parent.tree_exiting.connect(link_to_parent)
+	# parent.notification.
 
+func _notification(what: int):
+	print(what)
+	
 func link_to_parent():
+	print(parent.is_inside_tree())
+	# print(parent.is_visible_in_tree(), "t2")
+	# print(parent.is_part_of_edited_scene(), "2")
 	call_deferred("free")
 	parent.tree_exiting.disconnect(link_to_parent)
 	return

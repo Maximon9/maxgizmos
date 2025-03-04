@@ -41,6 +41,7 @@ var gizmo_spheroid: Gizmo
 var gizmo_spheroid_outline: Gizmo
 
 func _ready() -> void:
+	print("ok1")
 	_draw_gizmo()
 
 func _draw_gizmo() -> void:
