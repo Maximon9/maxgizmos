@@ -285,7 +285,7 @@ func spheroid_point(theta: float, phi: float, radius: Vector3) -> Vector3:
 	)
 
 func _get_scene_root() -> Node3D:
-	var root_scene = _get_scene_root() if Engine.is_editor_hint() else get_tree().current_scene
+	var root_scene = get_tree().edited_scene_root if Engine.is_editor_hint() else get_tree().current_scene
 	assert(root_scene != null, "root scene is null")
 	assert(root_scene is Node3D, "root scene is not a Node3D")
 	return root_scene
