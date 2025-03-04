@@ -70,7 +70,7 @@ func _draw_normals() -> void:
 			var normal = normals[i]
 			points.append_array([vertex, vertex + (normal * 1)])
 		
-		multiline_gizmo = Gizmo3D.create_multiline_with_transform(Color.WHEAT, points, test_transform)
+		multiline_gizmo = Gizmo3D.create_multiline_with_transform(Color.WHEAT, points, [], test_transform)
 
 func get_spheroid_transform() -> Transform3D:
 	var gizmo_transform = Transform3D()

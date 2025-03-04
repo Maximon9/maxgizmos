@@ -147,7 +147,8 @@ func _init(
 		for material in materials:
 			if material is StandardMaterial3D:
 				material.albedo_color = color
-
+	
+	# Create a render instance
 	var mesh_rid = mesh.get_rid()
 
 	# Assign materials to mesh
@@ -156,26 +157,30 @@ func _init(
 			var material = materials[i]
 			mesh.surface_set_material(i, material)
 	
-	# Create a render instance
 	instance_rid = RenderingServer.instance_create()
 	RenderingServer.instance_set_base(instance_rid, mesh_rid)
 	RenderingServer.instance_geometry_set_cast_shadows_setting(instance_rid, int(cast_shadow))
 	RenderingServer.instance_set_scenario(instance_rid, parent.get_world_3d().scenario)
-	RenderingServer.instance_set_transform(instance_rid, transform) # Position it at (0,1,0)
-	# RenderingServer.instance_attach_object_instance_id(instance_rid, parent.get_instance_id()) # Position it at (0,1,0)
-	parent.tree_exiting.connect(link_to_parent)
-	# parent.notification.
-
-func _notification(what: int):
-	print(what)
+	RenderingServer.instance_set_transform(instance_rid, transform)
 	
-func link_to_parent():
-	print(parent.is_inside_tree())
-	# print(parent.is_visible_in_tree(), "t2")
-	# print(parent.is_part_of_edited_scene(), "2")
-	call_deferred("free")
-	parent.tree_exiting.disconnect(link_to_parent)
-	return
+	parent.tree_entered.connect(enable)
+	parent.tree_exited.connect(disable)
+	# parent.tree_exited.connect(disable_test)
+	# parent.tree_exiting.connect(disable)
+	# parent.notification.
+	
+func enable():
+	_create_mesh()
+
+func disable():
+	RenderingServer.free_rid(instance_rid)
+	call_deferred("_real_disable")
+	# parent.tree_exiting.disconnect(disable)
+
+func _real_disable():
+	if not is_instance_valid(parent):
+		call_deferred("free")
+	# RenderingServer.free_rid(instance_rid)
 
 func _generate_surface() -> Array:
 	return []
