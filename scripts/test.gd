@@ -20,7 +20,7 @@ extends Node3D
             gizmo_rotation = v_norm
         _update_transform()
 
-@export var gizmo_scale := Vector3.ONE:
+@export var gizmo_scale: Vector3 = Vector3.ONE:
     set(v):
         gizmo_scale = v
         _update_transform()
