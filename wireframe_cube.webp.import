@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2tneuem4x5af"
-path="res://.godot/imported/example_2.png-001075e63c5d4bd512728f9ed55808e5.ctex"
+uid="uid://c2nql3ssgodwp"
+path="res://.godot/imported/wireframe_cube.webp-dd22152857ceb6785a75f87910964b2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/example_2.png"
-dest_files=["res://.godot/imported/example_2.png-001075e63c5d4bd512728f9ed55808e5.ctex"]
+source_file="res://wireframe_cube.webp"
+dest_files=["res://.godot/imported/wireframe_cube.webp-dd22152857ceb6785a75f87910964b2e.ctex"]
 
 [params]
 
