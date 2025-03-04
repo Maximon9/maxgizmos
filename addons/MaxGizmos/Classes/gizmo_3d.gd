@@ -3,6 +3,7 @@
 extends Node3D
 
 #region Creating Lines
+## Creates a line
 func create_line(
 	color := Color.GREEN,
 	from := Vector3.ZERO,
@@ -24,6 +25,8 @@ func create_line(
 		cast_shadow,
 		smooth_shading,
 	)
+
+## Creates a line with a transform
 func create_line_transform(
 	color := Color.GREEN,
 	from := Vector3.ZERO,
@@ -47,6 +50,7 @@ func create_line_transform(
 	)
 	return gizmo
 
+## Creates multiple lines
 func create_multiline(
 	color := Color.GREEN,
 	points := PackedVector3Array(),
@@ -70,6 +74,7 @@ func create_multiline(
 		material,
 	)
 
+## Creates multiple lines with a transform
 func create_multiline_with_transform(
 	color := Color.GREEN,
 	points := PackedVector3Array(),
@@ -95,6 +100,7 @@ func create_multiline_with_transform(
 #endregion
 
 #region Creating Boxes
+## Creates a box
 func create_box(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -114,6 +120,7 @@ func create_box(
 		material
 	)
 
+## Creates a box with a transform
 func create_box_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -133,6 +140,7 @@ func create_box_with_transform(
 	)
 	return gizmo
 
+## Creates a box outline
 func create_box_outline(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -154,6 +162,7 @@ func create_box_outline(
 		colors,
 	)
 
+## Creates a box outline with a transform
 func create_box_outline_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -177,6 +186,7 @@ func create_box_outline_with_transform(
 #endregion
 
 #region Creating Spheroids
+## Creates a spheroid
 func create_spheroid(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -200,6 +210,7 @@ func create_spheroid(
 		rings,
 	)
 
+## Creates a spheroid with a transform
 func create_spheroid_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -223,6 +234,7 @@ func create_spheroid_with_transform(
 	)
 	return gizmo
 
+## Creates a spheroid outline
 func create_spheroid_outline(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -250,6 +262,7 @@ func create_spheroid_outline(
 		horizontal_segments
 	)
 
+## Creates a spheroid outline with a transform
 func create_spheroid_outline_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
@@ -280,36 +293,6 @@ func create_spheroid_outline_with_transform(
 #endregion
 
 #region Utility Functions
-## Gets the center of a triangle
-func get_triangle_centroid(triangle: PackedVector3Array) -> Vector3:
-	return (triangle[0] + triangle[1] + triangle[2]) / 3.0
-
-## Calculates face normals of a triangle
-func _calculate_face_normal(vertex_1: Vector3, vertex_2: Vector3, vertex_3: Vector3) -> Vector3:
-	var edge1 = vertex_2 - vertex_1
-	var edge2 = vertex_3 - vertex_1
-	var normal = edge2.cross(edge1).normalized() # Cross product and normalize
-	return normal
-
-## Function to group an array into subarrays of a fixed size
-func _group_array(array: Array, group_size: int) -> Array:
-	var grouped_array = []
-	var group = []
-	
-	for i in range(array.size()):
-		group.append(array[i])
-		
-		# If the group has reached the desired size, push it to the grouped array
-		if group.size() == group_size:
-			grouped_array.append(group)
-			group = []
-			
-	# If there are any leftover elements, add them as a smaller group
-	if group.size() > 0:
-		grouped_array.append(group)
-	
-	return grouped_array
-
 ## Turns values such as position, rotation, and scale into a transform
 func create_transform_from_values(_position: Vector3 = Vector3.ZERO, _rotation := Vector3.ZERO, _scale := Vector3.ONE) -> Transform3D:
 	var _transform = Transform3D()
