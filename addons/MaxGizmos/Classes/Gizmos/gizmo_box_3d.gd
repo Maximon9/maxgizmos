@@ -4,11 +4,13 @@ extends Gizmo
 ## This class creates a gizmo sphere for debugging.
 class_name GizmoBox3D
 
+## Whether each face shares the same uv positions
 var single_uv_per_face := false:
     set(v):
         single_uv_per_face = v
         _try_recalculating_mesh()
 
+## the default value for smooth_shading
 func default_smooth_shading() -> bool:
     return false
 
@@ -222,7 +224,7 @@ func _generate_surface() -> Array:
     return _get_surface_arrays()
 
 ## This recalculates the [Gizmo]'s Mesh
-func recalculate_mesh(data := {}):
+func recalculate_mesh(data := {}) -> void:
     if "size" in data:
         size = data["size"]
     super(data)

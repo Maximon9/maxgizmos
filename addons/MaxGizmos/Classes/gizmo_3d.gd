@@ -15,7 +15,7 @@ func create_line(
 	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
 	smooth_shading := false,
 	material: Material = null,
-):
+) -> GizmoLine3D:
 	return create_line_transform(
 		color,
 		from,
@@ -36,7 +36,7 @@ func create_line_transform(
 	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
 	smooth_shading := false,
 	material: Material = null,
-):
+) -> GizmoLine3D:
 	var gizmo = GizmoLine3D.new(
 		_get_scene_root(),
 		color,
@@ -62,7 +62,7 @@ func create_multiline(
 	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
 	smooth_shading := false,
 	material: Material = null,
-):
+) -> GizmoMultiline3D:
 	return create_multiline_with_transform(
 		color,
 		points,
@@ -84,7 +84,7 @@ func create_multiline_with_transform(
 	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
 	smooth_shading := false,
 	material: Material = null,
-):
+) -> GizmoMultiline3D:
 	var gizmo = GizmoMultiline3D.new(
 		_get_scene_root(),
 		color,

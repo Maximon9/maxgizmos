@@ -3,6 +3,7 @@
 extends Gizmo
 class_name GizmoMultiline3D
 
+## These are the colors of each vertex an an array. You may choose to have these or not.
 var colors := PackedColorArray():
     set(v):
         colors = v
@@ -31,7 +32,7 @@ func _init(
         _materials
     )
 
-func _generate_surface():
+func _generate_surface() -> Array:
     var surface_arrays = _get_surface_arrays()
     if colors.size() > 0:
         surface_arrays[Mesh.ARRAY_COLOR] = colors
@@ -49,6 +50,7 @@ func _default_material() -> StandardMaterial3D:
         material.albedo_color = color
     return material
 
+## This recalculates the [Gizmo]'s Mesh
 func recalculate_mesh(data := {}):
     if "colors" in data:
         colors = data["colors"]

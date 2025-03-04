@@ -14,7 +14,7 @@ extends Node3D
 
 @export var gizmo_rotation: Quaternion = Quaternion.IDENTITY:
 	set(v):
-		var v_norm = v.normalized()
+		var v_norm := v.normalized()
 		if v_norm.is_finite():
 			gizmo_rotation = v_norm
 		_update_transform()
@@ -56,30 +56,30 @@ func _draw_normals() -> void:
 	if multiline_gizmo != null:
 		multiline_gizmo.free()
 	if draw_vertex_normals == true:
-		var test_transform = Transform3D()
+		var test_transform := Transform3D()
 		test_transform = test_transform.translated(gizmo_position)
 
 		var surface_arrays := gizmo_spheroid.mesh.surface_get_arrays(0)
 
-		var vertices = surface_arrays[Mesh.ARRAY_VERTEX]
-		var normals = surface_arrays[Mesh.ARRAY_NORMAL]
+		var vertices: PackedVector3Array = surface_arrays[Mesh.ARRAY_VERTEX]
+		var normals: PackedVector3Array = surface_arrays[Mesh.ARRAY_NORMAL]
 		
 		var points := PackedVector3Array()
 		for i in range(vertices.size()):
-			var vertex = vertices[i]
-			var normal = normals[i]
+			var vertex := vertices[i]
+			var normal := normals[i]
 			points.append_array([vertex, vertex + (normal * 1)])
 		
 		multiline_gizmo = Gizmo3D.create_multiline_with_transform(Color.WHEAT, points, [], test_transform)
 
 func get_spheroid_transform() -> Transform3D:
-	var gizmo_transform = Transform3D()
+	var gizmo_transform := Transform3D()
 	gizmo_transform.basis = Basis(gizmo_rotation) * Basis().scaled(gizmo_scale)
 	gizmo_transform.origin = gizmo_position
 	return gizmo_transform
 
 func get_spheroid_outline_transform() -> Transform3D:
-	var gizmo_transform = Transform3D()
+	var gizmo_transform := Transform3D()
 	gizmo_transform.basis = Basis(gizmo_rotation) * Basis().scaled(gizmo_scale + Vector3(0.02, 0.02, 0.02))
 	gizmo_transform.origin = gizmo_position
 	return gizmo_transform

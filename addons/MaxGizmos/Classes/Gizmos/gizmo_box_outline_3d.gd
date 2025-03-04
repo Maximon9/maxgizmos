@@ -3,14 +3,10 @@
 extends Gizmo
 class_name GizmoBoxOutline3D
 
+## These are the colors of each vertex an an array. You may choose to have these or not.
 var colors := PackedColorArray():
     set(v):
         colors = v
-        _try_recalculating_mesh()
-
-var subdivisions := 0:
-    set(v):
-        subdivisions = v
         _try_recalculating_mesh()
 
 func _init(
@@ -34,7 +30,7 @@ func _init(
         _materials
     )
 
-func _generate_surface():
+func _generate_surface() -> Array:
     # Define the 8 corners of the box
     var half_size = Vector3(0.5, 0.5, 0.5)
     var corners = [
@@ -82,6 +78,7 @@ func _default_material() -> StandardMaterial3D:
         material.albedo_color = color
     return material
 
+## This recalculates the [Gizmo]'s Mesh
 func recalculate_mesh(data := {}):
     if "colors" in data:
         colors = data["colors"]

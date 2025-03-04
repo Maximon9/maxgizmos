@@ -3,21 +3,26 @@
 extends Gizmo
 class_name GizmoLine3D
 
+## This is the start of the line.
 var from := Vector3.ZERO:
     set(v):
         from = v
         _try_recalculating_mesh()
+
+## This is the end of the line.
 var to := Vector3.ZERO:
     set(v):
         to = v
         _try_recalculating_mesh()
 
+## This is the start color of the line.
 var from_color := Color.GREEN:
     set(v):
         from_color = v
         if _line_has_different_colors():
             _try_recalculating_mesh()
 
+## This is the end color of the line.
 var to_color := Color.GREEN:
     set(v):
         to_color = v
@@ -47,7 +52,7 @@ func _init(
         _materials
     )
 
-func _generate_surface():
+func _generate_surface() -> Array:
     var points := [from, to]
 
     vertices.append_array([from, to])
@@ -81,6 +86,7 @@ func _default_material() -> StandardMaterial3D:
         material.albedo_color = color
     return material
 
+## This recalculates the [Gizmo]'s Mesh
 func recalculate_mesh(data := {}):
     if "from" in data:
         from = data["from"]

@@ -78,16 +78,19 @@ var materials: Array[Material]:
 				var material = materials[i]
 				RenderingServer.mesh_surface_set_material(mesh.get_rid(), i, material)
 
+## If [code]true[/code] the faces of the gizmo will be flipped.
 var flip_faces := false:
 	set(v):
 		flip_faces = v
 		_try_recalculating_mesh()
 
+## If [code]true[/code] gizmo will have faces both on the outside and inside.
 var double_sided := false:
 	set(v):
 		double_sided = v
 		_try_recalculating_mesh()
 
+## This is the color of the gizmo
 var color := Color.GREEN:
 	set(v):
 		color = v
@@ -96,26 +99,29 @@ var color := Color.GREEN:
 				if material is StandardMaterial3D:
 					material.albedo_color = color
 
+## This is the size of the gizmo
 var size := Vector3(1., 1., 1.):
 	set(v):
 		size = v
 		update_minimal_data()
 
+## These are the vertices of the gizmo's mesh
 var vertices := PackedVector3Array():
 	set(v):
 		vertices = v
 		update_minimal_data()
 
+## These are the normals of the gizmo's mesh
 var normals := PackedVector3Array():
 	set(v):
 		normals = v
 		update_minimal_data()
 
+## These are the uvs of the gizmo's mesh
 var uvs := PackedVector2Array():
 	set(v):
 		uvs = v
 		update_minimal_data()
-var scenario: RID
 
 func _init(
 	_parent: Node3D,
@@ -163,20 +169,20 @@ func _init(
 	RenderingServer.instance_set_scenario(instance_rid, parent.get_world_3d().scenario)
 	RenderingServer.instance_set_transform(instance_rid, transform)
 	
-	parent.tree_entered.connect(enable)
-	parent.tree_exited.connect(disable)
+	parent.tree_entered.connect(_enable)
+	parent.tree_exited.connect(_disable)
 	# parent.tree_exited.connect(disable_test)
-	# parent.tree_exiting.connect(disable)
+	# parent.tree_exiting.connect(_disable)
 	# parent.notification.
-	
-func enable():
+
+func _enable():
 	RenderingServer.instance_set_visible(instance_rid, true)
 	return
 
-func disable():
+func _disable():
 	RenderingServer.instance_set_visible(instance_rid, false)
 	call_deferred("_real_disable")
-	# parent.tree_exiting.disconnect(disable)
+	# parent.tree_exiting.disconnect(_disable)
 
 func _real_disable():
 	if not is_instance_valid(parent):
