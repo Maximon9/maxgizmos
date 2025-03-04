@@ -1,5 +1,4 @@
 #region Main
-#region Main
 @tool
 extends Node3D
 
@@ -25,10 +24,6 @@ extends Node3D
 		gizmo_scale = v
 		_update_transform()
 
-var multiline_gizmo: GizmoMultiline3D
-var gizmo_spheroid: Gizmo
-var gizmo_spheroid_outline: Gizmo
-
 @export var draw_vertex_normals := false:
 	set(v):
 		draw_vertex_normals = v
@@ -41,13 +36,20 @@ var gizmo_spheroid_outline: Gizmo
 		else:
 			refresh_gizmos = v
 
+var multiline_gizmo: GizmoMultiline3D
+var gizmo_spheroid: Gizmo
+var gizmo_spheroid_outline: Gizmo
+
+func _ready() -> void:
+	_draw_gizmo()
+
 func _draw_gizmo() -> void:
 	if gizmo_spheroid != null:
 		gizmo_spheroid.free()
 	if gizmo_spheroid_outline != null:
 		gizmo_spheroid_outline.free()
-	gizmo_spheroid = Gizmo3D.create_spheroid_transform(Color.DARK_GREEN, gizmo_size, get_spheroid_transform())
-	gizmo_spheroid_outline = Gizmo3D.create_spheroid_outline_transform(Color.ORANGE, gizmo_size, get_spheroid_outline_transform())
+	gizmo_spheroid = Gizmo3D.create_box_with_transform(Color.DARK_GREEN, gizmo_size, get_spheroid_transform())
+	gizmo_spheroid_outline = Gizmo3D.create_box_outline_with_transform(Color.ORANGE, gizmo_size, get_spheroid_outline_transform())
 	_draw_normals()
 
 func _draw_normals() -> void:
@@ -68,7 +70,7 @@ func _draw_normals() -> void:
 			var normal = normals[i]
 			points.append_array([vertex, vertex + (normal * 1)])
 		
-		multiline_gizmo = Gizmo3D.create_multiline_transform(Color.WHEAT, points, test_transform)
+		multiline_gizmo = Gizmo3D.create_multiline_with_transform(Color.WHEAT, points, test_transform)
 
 func get_spheroid_transform() -> Transform3D:
 	var gizmo_transform = Transform3D()
@@ -78,7 +80,7 @@ func get_spheroid_transform() -> Transform3D:
 
 func get_spheroid_outline_transform() -> Transform3D:
 	var gizmo_transform = Transform3D()
-	gizmo_transform.basis = Basis(gizmo_rotation) * Basis().scaled(gizmo_scale + Vector3(0.01, 0.01, 0.01))
+	gizmo_transform.basis = Basis(gizmo_rotation) * Basis().scaled(gizmo_scale + Vector3(0.02, 0.02, 0.02))
 	gizmo_transform.origin = gizmo_position
 	return gizmo_transform
 
@@ -94,6 +96,4 @@ func _update_transform() -> void:
 	gizmo_spheroid_outline.size = gizmo_size
 	gizmo_spheroid_outline.transform = get_spheroid_outline_transform()
 	
-func _ready() -> void:
-	_draw_gizmo()
 #endregion

@@ -29,8 +29,8 @@ func _init(
     _color := Color.GREEN,
     _from := Vector3.ZERO,
     _to := Vector3.ZERO,
-    _size := Vector3.ONE,
     _transform: Transform3D = Transform3D(),
+    _size := Vector3.ONE,
     _cast_shadow: GeometryInstance3D.ShadowCastingSetting = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
     _smooth_shading := true,
     _materials: Array[Material] = []

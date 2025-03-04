@@ -3,6 +3,27 @@
 extends Node3D
 
 #region Creating Lines
+func create_line(
+	color := Color.GREEN,
+	from := Vector3.ZERO,
+	to := Vector3.ZERO,
+	_position := Vector3.ZERO,
+	_rotation := Vector3.ZERO,
+	_scale := Vector3.ONE,
+	size := Vector3.ONE,
+	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
+	smooth_shading := false,
+	material: Material = null,
+):
+	return create_line_transform(
+		color,
+		from,
+		to,
+		create_transform_from_values(_position, _rotation, _scale),
+		size,
+		cast_shadow,
+		smooth_shading,
+	)
 func create_line_transform(
 	color := Color.GREEN,
 	from := Vector3.ZERO,
@@ -18,34 +39,57 @@ func create_line_transform(
 		color,
 		from,
 		to,
-		size,
 		_transform,
+		size,
 		cast_shadow,
 		smooth_shading,
 		[material]
 	)
 	return gizmo
 
-func create_multiline_transform(
+func create_multiline(
 	color := Color.GREEN,
 	points := PackedVector3Array(),
+	colors := PackedColorArray(),
+	_position := Vector3.ZERO,
+	_rotation := Vector3.ZERO,
+	_scale := Vector3.ONE,
+	size := Vector3.ONE,
+	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
+	smooth_shading := false,
+	material: Material = null,
+):
+	return create_multiline_with_transform(
+		color,
+		points,
+		colors,
+		create_transform_from_values(_position, _rotation, _scale),
+		size,
+		cast_shadow,
+		smooth_shading,
+		material,
+	)
+
+func create_multiline_with_transform(
+	color := Color.GREEN,
+	points := PackedVector3Array(),
+	colors := PackedColorArray(),
 	_transform := Transform3D(),
 	size := Vector3.ONE,
 	cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF,
 	smooth_shading := false,
 	material: Material = null,
-	colors := PackedColorArray(),
 ):
 	var gizmo = GizmoMultiline3D.new(
 		_get_scene_root(),
 		color,
 		points,
+		colors,
 		_transform,
 		size,
 		cast_shadow,
 		smooth_shading,
 		[material],
-		colors,
 	)
 	return gizmo
 #endregion
@@ -61,7 +105,7 @@ func create_box(
 	smooth_shading := true,
 	material: Material = null,
 ) -> GizmoBox3D:
-	return create_box_transform(
+	return create_box_with_transform(
 		color,
 		size,
 		create_transform_from_values(_position, _rotation, _scale),
@@ -70,7 +114,7 @@ func create_box(
 		material
 	)
 
-func create_box_transform(
+func create_box_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
 	_transform := Transform3D(),
@@ -100,7 +144,7 @@ func create_box_outline(
 	material: Material = null,
 	colors := PackedColorArray(),
 ) -> GizmoBoxOutline3D:
-	return create_box_outline_transform(
+	return create_box_outline_with_transform(
 		color,
 		size,
 		create_transform_from_values(_position, _rotation, _scale),
@@ -110,7 +154,7 @@ func create_box_outline(
 		colors,
 	)
 
-func create_box_outline_transform(
+func create_box_outline_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
 	transform := Transform3D(),
@@ -145,7 +189,7 @@ func create_spheroid(
 	radial_segments := 64,
 	rings := 32,
 ) -> GizmoSpheroid3D:
-	return create_spheroid_transform(
+	return create_spheroid_with_transform(
 		color,
 		size,
 		create_transform_from_values(_position, _rotation, _scale),
@@ -156,7 +200,7 @@ func create_spheroid(
 		rings,
 	)
 
-func create_spheroid_transform(
+func create_spheroid_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
 	_transform := Transform3D(),
@@ -193,7 +237,7 @@ func create_spheroid_outline(
 	vertical_rings := 64,
 	horizontal_segments := 64,
 ) -> GizmoSpheroidOutline3D:
-	return create_spheroid_outline_transform(
+	return create_spheroid_outline_with_transform(
 		color,
 		size,
 		create_transform_from_values(_position, _rotation, _scale),
@@ -206,7 +250,7 @@ func create_spheroid_outline(
 		horizontal_segments
 	)
 
-func create_spheroid_outline_transform(
+func create_spheroid_outline_with_transform(
 	color := Color.GREEN,
 	size := Vector3(1., 1., 1.),
 	_transform := Transform3D(),
