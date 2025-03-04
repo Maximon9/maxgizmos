@@ -170,10 +170,11 @@ func _init(
 	# parent.notification.
 	
 func enable():
-	_create_mesh()
+	RenderingServer.instance_set_visible(instance_rid, true)
+	return
 
 func disable():
-	RenderingServer.free_rid(instance_rid)
+	RenderingServer.instance_set_visible(instance_rid, false)
 	call_deferred("_real_disable")
 	# parent.tree_exiting.disconnect(disable)
 
